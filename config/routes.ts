@@ -1,6 +1,7 @@
 export default [
   { path: '/', redirect: '/welcome' },
-  { path: '/welcome', name: '欢迎', icon: 'smile', component: './Welcome' },
+  { path: '/welcome', name: '主页', icon: 'smile', component: './Welcome' },
+  { path: '/cake', name: '蛋糕', icon: 'search', component: './Cake/MyCakeCard' },
   {
     path: '/user',
     layout: false,
@@ -16,6 +17,9 @@ export default [
     routes: [
       {path: '/admin', redirect: '/admin/user'},
       { name: '用户管理', path: '/admin/user', component: './Admin/UserList' },
+      { name: '商品管理', path: '/admin/goods', component: './Admin/GoodsList' },
+      { name: '订单管理', path: '/admin/order', component: './Admin/OrderList' },
+      { name: '商品类型管理', path: '/admin/type', component: './Admin/TypeList' },
     ],
   },
   {

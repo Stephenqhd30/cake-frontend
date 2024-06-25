@@ -71,6 +71,18 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageType_ = {
+    code?: number;
+    data?: PageType_;
+    message?: string;
+  };
+
+  type BaseResponsePageTypeVO_ = {
+    code?: number;
+    data?: PageTypeVO_;
+    message?: string;
+  };
+
   type BaseResponsePageUser_ = {
     code?: number;
     data?: PageUser_;
@@ -83,9 +95,21 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseSearchVO_ = {
+    code?: number;
+    data?: SearchVO;
+    message?: string;
+  };
+
   type BaseResponseString_ = {
     code?: number;
     data?: string;
+    message?: string;
+  };
+
+  type BaseResponseTypeVO_ = {
+    code?: number;
+    data?: TypeVO;
     message?: string;
   };
 
@@ -116,6 +140,11 @@ declare namespace API {
   };
 
   type getOrderVOByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
+  type getTypeVOByIdUsingGETParams = {
     /** id */
     id?: number;
   };
@@ -450,6 +479,32 @@ declare namespace API {
     total?: number;
   };
 
+  type PageType_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: Type[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageTypeVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: TypeVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
   type PageUser_ = {
     countId?: string;
     current?: number;
@@ -474,6 +529,59 @@ declare namespace API {
     searchCount?: boolean;
     size?: number;
     total?: number;
+  };
+
+  type SearchRequest = {
+    current?: number;
+    pageSize?: number;
+    searchText?: string;
+    sortField?: string;
+    sortOrder?: string;
+    type?: string;
+  };
+
+  type SearchVO = {
+    dateList?: GoodsVO[];
+  };
+
+  type Type = {
+    createTime?: string;
+    id?: number;
+    isDelete?: number;
+    typeName?: string;
+    updateTime?: string;
+  };
+
+  type TypeAddRequest = {
+    id?: number;
+    typeName?: string;
+  };
+
+  type TypeEditRequest = {
+    id?: number;
+    typeName?: string;
+  };
+
+  type TypeQueryRequest = {
+    current?: number;
+    id?: number;
+    pageSize?: number;
+    searchText?: string;
+    sortField?: string;
+    sortOrder?: string;
+    typeName?: string;
+  };
+
+  type TypeUpdateRequest = {
+    id?: number;
+    typeName?: string;
+  };
+
+  type TypeVO = {
+    createTime?: string;
+    id?: number;
+    typeName?: string;
+    updateTime?: string;
   };
 
   type uploadFileUsingPOSTParams = {

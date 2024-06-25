@@ -1,5 +1,6 @@
 import {ProLayoutProps} from '@ant-design/pro-components';
 
+
 /**
  * @name
  */
@@ -17,9 +18,9 @@ const Settings: ProLayoutProps & {
   colorWeak: false,
   splitMenus: false,
   siderMenuType: 'sub',
-  title: '蛋糕商城项目',
+  title: '蛋糕商城',
   pwa: true,
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  logo: "https://butterfly-1318299170.cos.ap-shanghai.myqcloud.com/logo/cake.svg",
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式
