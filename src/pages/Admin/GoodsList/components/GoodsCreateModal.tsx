@@ -4,7 +4,7 @@ import { message, Modal } from 'antd';
 import React from 'react';
 import { addGoodsUsingPost } from '@/services/stephen-backend/goodsController';
 
-interface CreateProps {
+interface GoodsCreateProps {
   onCancel: () => void;
   onSubmit: (values: API.GoodsAddRequest) => Promise<void>;
   visible: boolean;
@@ -37,7 +37,7 @@ const handleAdd = async (fields: API.GoodsAddRequest) => {
  * @param props
  * @constructor
  */
-const CreateModal: React.FC<CreateProps> = (props) => {
+const GoodsCreateModal: React.FC<GoodsCreateProps> = (props) => {
   const { visible, onSubmit, onCancel, columns } = props;
   return (
     <Modal
@@ -62,4 +62,4 @@ const CreateModal: React.FC<CreateProps> = (props) => {
     </Modal>
   );
 };
-export default CreateModal;
+export default GoodsCreateModal;

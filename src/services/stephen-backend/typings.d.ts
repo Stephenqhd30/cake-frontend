@@ -170,7 +170,7 @@ declare namespace API {
     isDelete?: number;
     price?: number;
     stock?: number;
-    typeId?: number;
+    typeName?: string;
     updateTime?: string;
     userId?: number;
   };
@@ -183,7 +183,7 @@ declare namespace API {
     goodsName?: string;
     price?: number;
     stock?: number;
-    typeId?: number;
+    typeName?: string;
     userId?: number;
   };
 
@@ -196,7 +196,7 @@ declare namespace API {
     id?: number;
     price?: number;
     stock?: number;
-    typeId?: number;
+    typeName?: string;
   };
 
   type GoodsQueryRequest = {
@@ -213,7 +213,7 @@ declare namespace API {
     sortField?: string;
     sortOrder?: string;
     stock?: number;
-    typeId?: number;
+    typeName?: string;
     userId?: number;
   };
 
@@ -226,7 +226,7 @@ declare namespace API {
     id?: number;
     price?: number;
     stock?: number;
-    typeId?: number;
+    typeName?: string;
   };
 
   type GoodsVO = {
@@ -239,7 +239,7 @@ declare namespace API {
     id?: number;
     price?: number;
     stock?: number;
-    typeId?: number;
+    typeName?: string;
     updateTime?: string;
     userVO?: UserVO;
   };
@@ -541,7 +541,7 @@ declare namespace API {
   };
 
   type SearchVO = {
-    dateList?: GoodsVO[];
+    dateList?: PageGoodsVO_;
   };
 
   type Type = {

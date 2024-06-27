@@ -4,7 +4,7 @@ import { message, Modal } from 'antd';
 import React from 'react';
 import { updateTypeUsingPost } from '@/services/stephen-backend/typeController';
 
-interface UpdateProps {
+interface TypeUpdateProps {
   oldData?: API.Type;
   onCancel: () => void;
   onSubmit: (values: API.TypeAddRequest) => Promise<void>;
@@ -30,7 +30,7 @@ const handleUpdate = async (fields: API.TypeAddRequest) => {
     return false;
   }
 };
-const UpdateModal: React.FC<UpdateProps> = (props) => {
+const TypeUpdateModal: React.FC<TypeUpdateProps> = (props) => {
   const { oldData, visible, onSubmit, onCancel, columns } = props;
   if (!oldData) {
     return <></>;
@@ -65,4 +65,4 @@ const UpdateModal: React.FC<UpdateProps> = (props) => {
     </Modal>
   );
 };
-export default UpdateModal;
+export default TypeUpdateModal;

@@ -2,13 +2,13 @@ import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
-import {addOrderUsingPost} from '@/services/stephen-backend/orderController';
+import { addUserUsingPost } from '@/services/stephen-backend/userController';
 
-interface CreateProps {
+interface UserCreateProps {
   onCancel: () => void;
-  onSubmit: (values: API.OrderAddRequest) => Promise<void>;
+  onSubmit: (values: API.UserAddRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.Order>[];
+  columns: ProColumns<API.User>[];
 }
 
 /**
@@ -16,10 +16,10 @@ interface CreateProps {
  *
  * @param fields
  */
-const handleAdd = async (fields: API.OrderAddRequest) => {
+const handleAdd = async (fields: API.UserAddRequest) => {
   const hide = message.loading('正在添加');
   try {
-    await addOrderUsingPost({
+    await addUserUsingPost({
       ...fields,
     });
     hide();
@@ -37,7 +37,7 @@ const handleAdd = async (fields: API.OrderAddRequest) => {
  * @param props
  * @constructor
  */
-const CreateModal: React.FC<CreateProps> = (props) => {
+const UserCreateModal: React.FC<UserCreateProps> = (props) => {
   const { visible, onSubmit, onCancel, columns } = props;
   return (
     <Modal
@@ -51,7 +51,7 @@ const CreateModal: React.FC<CreateProps> = (props) => {
     >
       <ProTable
         columns={columns}
-        onSubmit={async (values: API.OrderAddRequest) => {
+        onSubmit={async (values: API.UserAddRequest) => {
           const success = await handleAdd(values);
           if (success) {
             onSubmit?.(values);
@@ -62,4 +62,4 @@ const CreateModal: React.FC<CreateProps> = (props) => {
     </Modal>
   );
 };
-export default CreateModal;
+export default UserCreateModal;

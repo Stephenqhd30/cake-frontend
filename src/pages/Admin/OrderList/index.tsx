@@ -3,9 +3,9 @@ import {ActionType, PageContainer, ProColumns, ProTable} from '@ant-design/pro-c
 import '@umijs/max';
 import {Button, message, Popconfirm, Space, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
-import UpdateModal from './components/UpdateModal';
-import CreateModal from '@/pages/Admin/UserList/components/CreateModal';
 import {deleteOrderUsingPost, listOrderByPageUsingPost} from '@/services/stephen-backend/orderController';
+import OrderCreateModal from '@/pages/Admin/OrderList/components/OrderCreateModal';
+import OrderUpdateModal from '@/pages/Admin/OrderList/components/OrderUpdateModal';
 
 /**
  * 删除节点
@@ -45,33 +45,45 @@ const OrderList: React.FC = () => {
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.Order>[] = [
-
+  const columns: ProColumns<API.OrderVO>[] = [
     {
       title: '订单id',
       dataIndex: 'id',
       valueType: 'text',
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '商品数量',
       dataIndex: 'amount',
-      valueType: 'text'
+      valueType: 'text',
     },
     {
       title: '收件人地址',
       dataIndex: 'address',
-      valueType: 'text'
+      valueType: 'text',
     },
     {
       title: '收件人姓名',
       dataIndex: 'userName',
-      valueType: 'text'
+      valueType: 'text',
     },
     {
       title: '收件人电话',
       dataIndex: 'userPhone',
-      valueType: 'text'
+      valueType: 'text',
+    },
+    {
+      title: '支付状态',
+      dataIndex: 'status',
+      valueType: 'text',
+      valueEnum: {
+        0: {
+          text: '正常',
+        },
+        1: {
+          text: '失败',
+        },
+      },
     },
 
     {
@@ -80,12 +92,12 @@ const OrderList: React.FC = () => {
       valueType: 'text',
       valueEnum: {
         0: {
-          text: '微信支付'
+          text: '微信支付',
         },
         1: {
-          text: '支付宝支付'
-        }
-      }
+          text: '支付宝支付',
+        },
+      },
     },
     {
       title: '订单总金额',
@@ -98,7 +110,7 @@ const OrderList: React.FC = () => {
       dataIndex: 'dateTime',
       valueType: 'dateTime',
       hideInSearch: true,
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '创建时间',
@@ -106,7 +118,7 @@ const OrderList: React.FC = () => {
       dataIndex: 'createTime',
       valueType: 'dateTime',
       hideInSearch: true,
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '更新时间',
@@ -114,7 +126,7 @@ const OrderList: React.FC = () => {
       dataIndex: 'updateTime',
       valueType: 'dateTime',
       hideInSearch: true,
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '操作',
@@ -127,7 +139,7 @@ const OrderList: React.FC = () => {
             onClick={() => {
               setUpdateModalVisible(true);
               setCurrentRow(record);
-              actionRef.current?.reload()
+              actionRef.current?.reload();
             }}
           >
             修改
@@ -154,8 +166,8 @@ const OrderList: React.FC = () => {
             </Typography.Link>
           </Popconfirm>
         </Space>
-      )
-    }
+      ),
+    },
   ];
   return (
     <PageContainer>
@@ -164,7 +176,7 @@ const OrderList: React.FC = () => {
         actionRef={actionRef}
         rowKey={'key'}
         search={{
-          labelWidth: 120
+          labelWidth: 120,
         }}
         toolBarRender={() => [
           <Button
@@ -174,23 +186,23 @@ const OrderList: React.FC = () => {
               setCreateModalVisible(true);
             }}
           >
-            <PlusOutlined/> 新建
-          </Button>
+            <PlusOutlined /> 新建
+          </Button>,
         ]}
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const {data, code} = await listOrderByPageUsingPost({
+          const { data, code } = await listOrderByPageUsingPost({
             ...params,
             ...filter,
             sortField,
-            sortOrder
+            sortOrder,
           } as API.OrderQueryRequest);
 
           return {
             success: code === 0,
             data: data?.records || [],
-            total: data?.total || 0
+            total: data?.total || 0,
           };
         }}
         columns={columns}
@@ -198,7 +210,7 @@ const OrderList: React.FC = () => {
 
       {/*新建表单的Modal框*/}
       {createModalVisible && (
-        <CreateModal
+        <OrderCreateModal
           onCancel={() => {
             setCreateModalVisible(false);
           }}
@@ -212,7 +224,7 @@ const OrderList: React.FC = () => {
       )}
       {/*更新表单的Modal框*/}
       {updateModalVisible && (
-        <UpdateModal
+        <OrderUpdateModal
           onCancel={() => {
             setUpdateModalVisible(false);
           }}

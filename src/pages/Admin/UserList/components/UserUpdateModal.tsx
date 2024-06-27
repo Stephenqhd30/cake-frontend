@@ -2,14 +2,14 @@ import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
-import { updateGoodsUsingPost } from '@/services/stephen-backend/goodsController';
+import { updateUserUsingPost } from '@/services/stephen-backend/userController';
 
-interface UpdateProps {
-  oldData?: API.Goods;
+interface UserUpdateProps {
+  oldData?: API.User;
   onCancel: () => void;
-  onSubmit: (values: API.GoodsUpdateRequest) => Promise<void>;
+  onSubmit: (values: API.UserUpdateRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.Goods>[];
+  columns: ProColumns<API.User>[];
 }
 
 /**
@@ -17,10 +17,10 @@ interface UpdateProps {
  *
  * @param fields
  */
-const handleUpdate = async (fields: API.GoodsUpdateRequest) => {
+const handleUpdate = async (fields: API.UserUpdateRequest) => {
   const hide = message.loading('正在更新');
   try {
-    await updateGoodsUsingPost(fields);
+    await updateUserUsingPost(fields);
     hide();
     message.success('更新成功');
     return true;
@@ -30,7 +30,7 @@ const handleUpdate = async (fields: API.GoodsUpdateRequest) => {
     return false;
   }
 };
-const UpdateModal: React.FC<UpdateProps> = (props) => {
+const UserUpdateModal: React.FC<UserUpdateProps> = (props) => {
   const { oldData, visible, onSubmit, onCancel, columns } = props;
   if (!oldData) {
     return <></>;
@@ -52,7 +52,7 @@ const UpdateModal: React.FC<UpdateProps> = (props) => {
           initialValues: oldData,
         }}
         columns={columns}
-        onSubmit={async (values: API.GoodsUpdateRequest) => {
+        onSubmit={async (values: API.UserUpdateRequest) => {
           const success = await handleUpdate({
             ...values,
             id: oldData?.id,
@@ -65,4 +65,4 @@ const UpdateModal: React.FC<UpdateProps> = (props) => {
     </Modal>
   );
 };
-export default UpdateModal;
+export default UserUpdateModal;

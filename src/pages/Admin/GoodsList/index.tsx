@@ -3,12 +3,12 @@ import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro
 import '@umijs/max';
 import { Button, message, Popconfirm, Space, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
-import UpdateModal from './components/UpdateModal';
-import CreateModal from '@/pages/Admin/UserList/components/CreateModal';
+import GoodsUpdateModal from './components/GoodsUpdateModal';
 import {
   deleteGoodsUsingPost,
   listGoodsVoByPageUsingPost,
 } from '@/services/stephen-backend/goodsController';
+import GoodsCreateModal from '@/pages/Admin/GoodsList/components/GoodsCreateModal';
 
 /**
  * 删除节点
@@ -48,7 +48,7 @@ const GoodsList: React.FC = () => {
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.Goods>[] = [
+  const columns: ProColumns<API.GoodsVO>[] = [
     {
       title: '商品id',
       dataIndex: 'id',
@@ -77,20 +77,47 @@ const GoodsList: React.FC = () => {
     },
     {
       title: '商品类型',
-      dataIndex: 'typeId',
+      dataIndex: 'typeName',
       valueType: 'text',
+      valueEnum: {
+        "冰淇淋系列": {
+          text: '冰淇淋系列',
+        },
+        "零食系列": {
+          text: '零食系列',
+        },
+        "儿童系列": {
+          text: '儿童系列',
+        },
+        "法式系列": {
+          text: '法式系列',
+        },
+        "经典系列": {
+          text: '经典系列',
+        },
+        "节日系列": {
+          text: '节日系列',
+        },
+        "买不起系列": {
+          text: '买不起系列',
+        },
+      },
     },
     {
-      title: '创建人',
-      dataIndex: 'userId',
+      title: '创建人姓名',
+      dataIndex: 'userVO',
       valueType: 'text',
+      key: 'userVO',
+      render: (_, record: API.GoodsVO) => {
+        return <div>{record?.userVO?.userName}</div>;
+      },
     },
     {
       title: '商品封面',
       dataIndex: 'goodsCover',
       valueType: 'image',
       fieldProps: {
-        width: 64,
+        width: 48,
       },
       hideInSearch: true,
     },
@@ -99,7 +126,7 @@ const GoodsList: React.FC = () => {
       dataIndex: 'goodsImage1',
       valueType: 'image',
       fieldProps: {
-        width: 64,
+        width: 48,
       },
       hideInSearch: true,
     },
@@ -108,7 +135,7 @@ const GoodsList: React.FC = () => {
       dataIndex: 'goodsImage2',
       valueType: 'image',
       fieldProps: {
-        width: 64,
+        width: 48,
       },
       hideInSearch: true,
     },
@@ -210,7 +237,7 @@ const GoodsList: React.FC = () => {
 
       {/*新建表单的Modal框*/}
       {createModalVisible && (
-        <CreateModal
+        <GoodsCreateModal
           onCancel={() => {
             setCreateModalVisible(false);
           }}
@@ -224,7 +251,7 @@ const GoodsList: React.FC = () => {
       )}
       {/*更新表单的Modal框*/}
       {updateModalVisible && (
-        <UpdateModal
+        <GoodsUpdateModal
           onCancel={() => {
             setUpdateModalVisible(false);
           }}

@@ -3,9 +3,9 @@ import {ActionType, PageContainer, ProColumns, ProTable} from '@ant-design/pro-c
 import '@umijs/max';
 import {Button, message, Popconfirm, Space, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
-import UpdateModal from './components/UpdateModal';
-import CreateModal from '@/pages/Admin/UserList/components/CreateModal';
+import TypeUpdateModal from './components/TypeUpdateModal';
 import {deleteTypeUsingPost, listTypeVoByPageUsingPost} from '@/services/stephen-backend/typeController';
+import TypeCreateModal from '@/pages/Admin/TypeList/components/TypeCreateModal';
 
 /**
  * 删除节点
@@ -33,7 +33,7 @@ const handleDelete = async (row: API.DeleteRequest) => {
  * 用户管理列表
  * @constructor
  */
-const OrderList: React.FC = () => {
+const TypeList: React.FC = () => {
   // 新建窗口的Modal框
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 更新窗口的Modal框
@@ -46,12 +46,11 @@ const OrderList: React.FC = () => {
    * 表格列数据
    */
   const columns: ProColumns<API.Type>[] = [
-
     {
       title: '商品类型id',
       dataIndex: 'id',
       valueType: 'text',
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '商品名称',
@@ -64,7 +63,7 @@ const OrderList: React.FC = () => {
       dataIndex: 'createTime',
       valueType: 'dateTime',
       hideInSearch: true,
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '更新时间',
@@ -72,7 +71,7 @@ const OrderList: React.FC = () => {
       dataIndex: 'updateTime',
       valueType: 'dateTime',
       hideInSearch: true,
-      hideInForm: true
+      hideInForm: true,
     },
     {
       title: '操作',
@@ -85,7 +84,7 @@ const OrderList: React.FC = () => {
             onClick={() => {
               setUpdateModalVisible(true);
               setCurrentRow(record);
-              actionRef.current?.reload()
+              actionRef.current?.reload();
             }}
           >
             修改
@@ -112,8 +111,8 @@ const OrderList: React.FC = () => {
             </Typography.Link>
           </Popconfirm>
         </Space>
-      )
-    }
+      ),
+    },
   ];
   return (
     <PageContainer>
@@ -122,7 +121,7 @@ const OrderList: React.FC = () => {
         actionRef={actionRef}
         rowKey={'key'}
         search={{
-          labelWidth: 120
+          labelWidth: 120,
         }}
         toolBarRender={() => [
           <Button
@@ -132,13 +131,13 @@ const OrderList: React.FC = () => {
               setCreateModalVisible(true);
             }}
           >
-            <PlusOutlined/> 新建
-          </Button>
+            <PlusOutlined /> 新建
+          </Button>,
         ]}
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const {data, code} = await listTypeVoByPageUsingPost({
+          const { data, code } = await listTypeVoByPageUsingPost({
             ...params,
             ...filter,
             sortField,
@@ -156,7 +155,7 @@ const OrderList: React.FC = () => {
 
       {/*新建表单的Modal框*/}
       {createModalVisible && (
-        <CreateModal
+        <TypeCreateModal
           onCancel={() => {
             setCreateModalVisible(false);
           }}
@@ -170,7 +169,7 @@ const OrderList: React.FC = () => {
       )}
       {/*更新表单的Modal框*/}
       {updateModalVisible && (
-        <UpdateModal
+        <TypeUpdateModal
           onCancel={() => {
             setUpdateModalVisible(false);
           }}
@@ -187,4 +186,4 @@ const OrderList: React.FC = () => {
     </PageContainer>
   );
 };
-export default OrderList;
+export default TypeList;

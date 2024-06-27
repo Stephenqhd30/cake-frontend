@@ -3,9 +3,9 @@ import {ActionType, PageContainer, ProColumns, ProTable} from '@ant-design/pro-c
 import '@umijs/max';
 import {Button, message, Popconfirm, Space, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
-import UpdateModal from './components/UpdateModal';
+import UserUpdateModal from './components/UserUpdateModal';
 import {deleteUserUsingPost, listUserByPageUsingPost} from '@/services/stephen-backend/userController';
-import CreateModal from '@/pages/Admin/UserList/components/CreateModal';
+import UserCreateModal from '@/pages/Admin/UserList/components/UserCreateModal';
 
 /**
  * 删除节点
@@ -196,7 +196,7 @@ const UserList: React.FC = () => {
 
       {/*新建表单的Modal框*/}
       {createModalVisible && (
-        <CreateModal
+        <UserCreateModal
           onCancel={() => {
             setCreateModalVisible(false);
           }}
@@ -210,7 +210,7 @@ const UserList: React.FC = () => {
       )}
       {/*更新表单的Modal框*/}
       {updateModalVisible && (
-        <UpdateModal
+        <UserUpdateModal
           onCancel={() => {
             setUpdateModalVisible(false);
           }}
