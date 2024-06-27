@@ -8,6 +8,16 @@ export default [
     component: './Cake',
   },
   {
+    path: '/cart',
+    name: '购物车',
+    icon: 'shopping',
+    routes: [
+      { path: './cart', redirect: '/cart/shopping' },
+      { name: '我的购物车', path: '/cart/shopping', component: './Cart/ShoppingCart' },
+      { name: '我的订单', path: '/cart/my-cart', component: './Cart/OrderItemList' },
+    ],
+  },
+  {
     path: '/cake/info/:id',
     name: '蛋糕详细页',
     component: './Cake/CakeInfo',

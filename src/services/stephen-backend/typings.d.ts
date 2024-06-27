@@ -71,6 +71,18 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageRecommend_ = {
+    code?: number;
+    data?: PageRecommend_;
+    message?: string;
+  };
+
+  type BaseResponsePageRecommendVO_ = {
+    code?: number;
+    data?: PageRecommendVO_;
+    message?: string;
+  };
+
   type BaseResponsePageType_ = {
     code?: number;
     data?: PageType_;
@@ -92,6 +104,12 @@ declare namespace API {
   type BaseResponsePageUserVO_ = {
     code?: number;
     data?: PageUserVO_;
+    message?: string;
+  };
+
+  type BaseResponseRecommendVO_ = {
+    code?: number;
+    data?: RecommendVO;
     message?: string;
   };
 
@@ -140,6 +158,11 @@ declare namespace API {
   };
 
   type getOrderVOByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
+  type getRecommendVOByIdUsingGETParams = {
     /** id */
     id?: number;
   };
@@ -336,7 +359,6 @@ declare namespace API {
     id?: number;
     orderId?: number;
     pageSize?: number;
-    searchText?: string;
     sortField?: string;
     sortOrder?: string;
     userId?: number;
@@ -479,6 +501,32 @@ declare namespace API {
     total?: number;
   };
 
+  type PageRecommend_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: Recommend[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageRecommendVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: RecommendVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
   type PageType_ = {
     countId?: string;
     current?: number;
@@ -529,6 +577,50 @@ declare namespace API {
     searchCount?: boolean;
     size?: number;
     total?: number;
+  };
+
+  type Recommend = {
+    createTime?: string;
+    goodsId?: number;
+    goodsType?: string;
+    id?: number;
+    isDelete?: number;
+    updateTime?: string;
+  };
+
+  type RecommendAddRequest = {
+    goodsId?: number;
+    goodsType?: string;
+  };
+
+  type RecommendEditRequest = {
+    goodsId?: number;
+    goodsType?: string;
+    id?: number;
+  };
+
+  type RecommendQueryRequest = {
+    current?: number;
+    goodsId?: number;
+    goodsType?: string;
+    id?: number;
+    pageSize?: number;
+    sortField?: string;
+    sortOrder?: string;
+  };
+
+  type RecommendUpdateRequest = {
+    goodsId?: number;
+    goodsType?: string;
+    id?: number;
+  };
+
+  type RecommendVO = {
+    createTime?: string;
+    goodsType?: string;
+    goodsVO?: GoodsVO;
+    id?: number;
+    updateTime?: string;
   };
 
   type SearchRequest = {

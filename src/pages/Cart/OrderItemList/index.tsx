@@ -1,11 +1,14 @@
-import {PlusOutlined} from '@ant-design/icons';
-import {ActionType, PageContainer, ProColumns, ProTable} from '@ant-design/pro-components';
+import { PlusOutlined } from '@ant-design/icons';
+import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import {Button, message, Popconfirm, Space, Typography} from 'antd';
-import React, {useRef, useState} from 'react';
-import {deleteOrderUsingPost, listOrderByPageUsingPost} from '@/services/stephen-backend/orderController';
-import OrderCreateModal from '@/pages/Admin/OrderList/components/OrderCreateModal';
-import OrderUpdateModal from '@/pages/Admin/OrderList/components/OrderUpdateModal';
+import { Button, message, Popconfirm, Space, Typography } from 'antd';
+import React, { useRef, useState } from 'react';
+import {
+  deleteOrderItemUsingPost,
+  listOrderItemVoByPageUsingPost,
+} from '@/services/stephen-backend/orderItemController';
+import OrderItemCreateModal from '@/pages/Cart/OrderItemList/components/OrderItemCreateModal';
+import OrderItemUpdateModal from '@/pages/Cart/OrderItemList/components/OrderUpdateModal';
 
 /**
  * 删除节点
@@ -16,8 +19,8 @@ const handleDelete = async (row: API.DeleteRequest) => {
   const hide = message.loading('正在删除');
   if (!row) return true;
   try {
-    await deleteOrderUsingPost({
-      id: row.id
+    await deleteOrderItemUsingPost({
+      id: row.id,
     });
     hide();
     message.success('删除成功');
@@ -33,82 +36,44 @@ const handleDelete = async (row: API.DeleteRequest) => {
  * 用户管理列表
  * @constructor
  */
-const OrderList: React.FC = () => {
+const OrderItemList: React.FC = () => {
   // 新建窗口的Modal框
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 更新窗口的Modal框
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
-  const [currentRow, setCurrentRow] = useState<API.Order>();
+  const [currentRow, setCurrentRow] = useState<API.OrderItemVO>();
 
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.OrderVO>[] = [
+  const columns: ProColumns<API.OrderItemVO>[] = [
     {
-      title: '订单id',
+      title: '订单项id',
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
     },
     {
-      title: '商品数量',
-      dataIndex: 'amount',
+      title: '订单数量',
+      dataIndex: 'orderItemAmount',
       valueType: 'text',
     },
     {
-      title: '收件人地址',
-      dataIndex: 'address',
+      title: '订单金额',
+      dataIndex: 'orderItemPrice',
       valueType: 'text',
     },
     {
-      title: '收件人姓名',
-      dataIndex: 'userName',
+      title: '商品id',
+      dataIndex: 'GoodsVO',
       valueType: 'text',
     },
     {
-      title: '收件人电话',
-      dataIndex: 'userPhone',
+      title: '订单id',
+      dataIndex: 'orderVO',
       valueType: 'text',
-    },
-    {
-      title: '支付状态',
-      dataIndex: 'status',
-      valueType: 'text',
-      valueEnum: {
-        0: {
-          text: '正常',
-        },
-        1: {
-          text: '失败',
-        },
-      },
-    },
-
-    {
-      title: '支付方式',
-      dataIndex: 'payType',
-      valueType: 'text',
-      valueEnum: {
-        0: {
-          text: '微信支付',
-        },
-        1: {
-          text: '支付宝支付',
-        },
-      },
-    },
-    {
-      title: '订单总金额',
-      dataIndex: 'total',
-      valueType: 'text',
-    },
-    {
-      title: '订单配送时间',
-      sorter: true,
-      dataIndex: 'dateTime',
-      valueType: 'dateTime',
     },
     {
       title: '创建时间',
@@ -169,7 +134,7 @@ const OrderList: React.FC = () => {
   ];
   return (
     <PageContainer>
-      <ProTable<API.Order, API.PageParams>
+      <ProTable<API.OrderItemVO, API.PageParams>
         headerTitle={'查询表格'}
         actionRef={actionRef}
         rowKey={'key'}
@@ -189,13 +154,13 @@ const OrderList: React.FC = () => {
         ]}
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
-          const sortOrder = sort?.[sortField] ?? undefined;
-          const { data, code } = await listOrderByPageUsingPost({
+          const sortOrderItem = sort?.[sortField] ?? undefined;
+          const { data, code } = await listOrderItemVoByPageUsingPost({
             ...params,
             ...filter,
             sortField,
-            sortOrder,
-          } as API.OrderQueryRequest);
+            sortOrderItem,
+          } as API.OrderItemQueryRequest);
 
           return {
             success: code === 0,
@@ -208,7 +173,7 @@ const OrderList: React.FC = () => {
 
       {/*新建表单的Modal框*/}
       {createModalVisible && (
-        <OrderCreateModal
+        <OrderItemCreateModal
           onCancel={() => {
             setCreateModalVisible(false);
           }}
@@ -222,7 +187,7 @@ const OrderList: React.FC = () => {
       )}
       {/*更新表单的Modal框*/}
       {updateModalVisible && (
-        <OrderUpdateModal
+        <OrderItemUpdateModal
           onCancel={() => {
             setUpdateModalVisible(false);
           }}
@@ -239,4 +204,4 @@ const OrderList: React.FC = () => {
     </PageContainer>
   );
 };
-export default OrderList;
+export default OrderItemList;

@@ -6,6 +6,7 @@ import * as fileController from './fileController';
 import * as goodsController from './goodsController';
 import * as orderController from './orderController';
 import * as orderItemController from './orderItemController';
+import * as recommendController from './recommendController';
 import * as searchController from './searchController';
 import * as typeController from './typeController';
 import * as userController from './userController';
@@ -14,6 +15,7 @@ export default {
   goodsController,
   orderController,
   orderItemController,
+  recommendController,
   searchController,
   typeController,
   userController,
