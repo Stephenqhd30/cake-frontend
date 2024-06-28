@@ -5,6 +5,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseCartVO_ = {
+    code?: number;
+    data?: CartVO;
+    message?: string;
+  };
+
   type BaseResponseGoodsVO_ = {
     code?: number;
     data?: GoodsVO;
@@ -32,6 +38,18 @@ declare namespace API {
   type BaseResponseOrderVO_ = {
     code?: number;
     data?: OrderVO;
+    message?: string;
+  };
+
+  type BaseResponsePageCart_ = {
+    code?: number;
+    data?: PageCart_;
+    message?: string;
+  };
+
+  type BaseResponsePageCartVO_ = {
+    code?: number;
+    data?: PageCartVO_;
     message?: string;
   };
 
@@ -71,18 +89,6 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponsePageRecommend_ = {
-    code?: number;
-    data?: PageRecommend_;
-    message?: string;
-  };
-
-  type BaseResponsePageRecommendVO_ = {
-    code?: number;
-    data?: PageRecommendVO_;
-    message?: string;
-  };
-
   type BaseResponsePageType_ = {
     code?: number;
     data?: PageType_;
@@ -104,12 +110,6 @@ declare namespace API {
   type BaseResponsePageUserVO_ = {
     code?: number;
     data?: PageUserVO_;
-    message?: string;
-  };
-
-  type BaseResponseRecommendVO_ = {
-    code?: number;
-    data?: RecommendVO;
     message?: string;
   };
 
@@ -143,7 +143,62 @@ declare namespace API {
     message?: string;
   };
 
+  type Cart = {
+    createTime?: string;
+    goodsId?: number;
+    id?: number;
+    isDelete?: number;
+    quantity?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type CartAddRequest = {
+    goodsId?: number;
+    quantity?: number;
+    userId?: number;
+  };
+
+  type CartEditRequest = {
+    goodsId?: number;
+    id?: number;
+    quantity?: number;
+    userId?: number;
+  };
+
+  type CartQueryRequest = {
+    current?: number;
+    goodsId?: number;
+    id?: number;
+    pageSize?: number;
+    quantity?: number;
+    sortField?: string;
+    sortOrder?: string;
+    userId?: number;
+  };
+
+  type CartUpdateRequest = {
+    goodsId?: number;
+    id?: number;
+    quantity?: number;
+    userId?: number;
+  };
+
+  type CartVO = {
+    createTime?: string;
+    goodsVO?: GoodsVO;
+    id?: number;
+    quantity?: number;
+    updateTime?: string;
+    userVO?: UserVO;
+  };
+
   type DeleteRequest = {
+    id?: number;
+  };
+
+  type getCartVOByIdUsingGETParams = {
+    /** id */
     id?: number;
   };
 
@@ -158,11 +213,6 @@ declare namespace API {
   };
 
   type getOrderVOByIdUsingGETParams = {
-    /** id */
-    id?: number;
-  };
-
-  type getRecommendVOByIdUsingGETParams = {
     /** id */
     id?: number;
   };
@@ -423,6 +473,32 @@ declare namespace API {
     userVO?: UserVO;
   };
 
+  type PageCart_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: Cart[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageCartVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: CartVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
   type PageGoods_ = {
     countId?: string;
     current?: number;
@@ -501,32 +577,6 @@ declare namespace API {
     total?: number;
   };
 
-  type PageRecommend_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
-    records?: Recommend[];
-    searchCount?: boolean;
-    size?: number;
-    total?: number;
-  };
-
-  type PageRecommendVO_ = {
-    countId?: string;
-    current?: number;
-    maxLimit?: number;
-    optimizeCountSql?: boolean;
-    orders?: OrderItem[];
-    pages?: number;
-    records?: RecommendVO[];
-    searchCount?: boolean;
-    size?: number;
-    total?: number;
-  };
-
   type PageType_ = {
     countId?: string;
     current?: number;
@@ -577,50 +627,6 @@ declare namespace API {
     searchCount?: boolean;
     size?: number;
     total?: number;
-  };
-
-  type Recommend = {
-    createTime?: string;
-    goodsId?: number;
-    goodsType?: string;
-    id?: number;
-    isDelete?: number;
-    updateTime?: string;
-  };
-
-  type RecommendAddRequest = {
-    goodsId?: number;
-    goodsType?: string;
-  };
-
-  type RecommendEditRequest = {
-    goodsId?: number;
-    goodsType?: string;
-    id?: number;
-  };
-
-  type RecommendQueryRequest = {
-    current?: number;
-    goodsId?: number;
-    goodsType?: string;
-    id?: number;
-    pageSize?: number;
-    sortField?: string;
-    sortOrder?: string;
-  };
-
-  type RecommendUpdateRequest = {
-    goodsId?: number;
-    goodsType?: string;
-    id?: number;
-  };
-
-  type RecommendVO = {
-    createTime?: string;
-    goodsType?: string;
-    goodsVO?: GoodsVO;
-    id?: number;
-    updateTime?: string;
   };
 
   type SearchRequest = {

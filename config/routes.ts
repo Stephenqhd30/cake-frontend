@@ -13,7 +13,7 @@ export default [
     icon: 'shopping',
     routes: [
       { path: './cart', redirect: '/cart/shopping' },
-      { name: '我的购物车', path: '/cart/shopping', component: './Cart/ShoppingCart' },
+      { name: '我的购物车', path: '/cart/shopping', component: './Cart/CartList' },
       { name: '我的订单', path: '/cart/my-cart', component: './Cart/OrderItemList' },
     ],
   },
