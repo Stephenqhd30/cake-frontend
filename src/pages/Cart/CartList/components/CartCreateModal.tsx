@@ -42,7 +42,7 @@ const CartCreateModal: React.FC<CartCreateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'加入购物车'}
       open={visible}
       footer={null}
       onCancel={() => {

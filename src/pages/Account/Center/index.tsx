@@ -1,8 +1,7 @@
 import React from 'react';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { ACCOUNT_TITLE } from '@/constants';
-import UserInfoCard from '@/pages/Account/Center/components/UserCard';
-import UserDetailsCard from '@/pages/Account/Center/components/UserDetailsCard';
+import { UserDetailsCard, UserInfoCard } from '@/pages/Account/Center/components';
 
 const UserCenter: React.FC = () => {
   return (

@@ -8,7 +8,7 @@ import {
   listOrderItemVoByPageUsingPost,
 } from '@/services/stephen-backend/orderItemController';
 import OrderItemCreateModal from '@/pages/Cart/OrderItemList/components/OrderItemCreateModal';
-import OrderItemUpdateModal from '@/pages/Cart/OrderItemList/components/OrderUpdateModal';
+import OrderItemUpdateModal from '@/pages/Cart/OrderItemList/components/OrderItemUpdateModal';
 
 /**
  * 删除节点
@@ -57,23 +57,33 @@ const OrderItemList: React.FC = () => {
     },
     {
       title: '订单数量',
-      dataIndex: 'orderItemAmount',
+      dataIndex: 'goodsAmount',
       valueType: 'text',
     },
     {
       title: '订单金额',
-      dataIndex: 'orderItemPrice',
+      dataIndex: 'goodsPrice',
       valueType: 'text',
     },
     {
       title: '商品id',
-      dataIndex: 'GoodsVO',
+      dataIndex: 'goodsVO',
       valueType: 'text',
+      render: (_, record: API.OrderItemVO) => {
+        return(
+          <div>{record?.goodsVO?.id}</div>
+        )
+      }
     },
     {
       title: '订单id',
       dataIndex: 'orderVO',
       valueType: 'text',
+      render: (_, record: API.OrderItemVO) => {
+        return(
+          <div>{record?.orderVO?.id}</div>
+        )
+      }
     },
     {
       title: '创建时间',

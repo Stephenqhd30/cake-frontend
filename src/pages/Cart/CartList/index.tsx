@@ -7,8 +7,12 @@ import {
   deleteCartUsingPost,
   listCartVoByPageUsingPost,
 } from '@/services/stephen-backend/cartController';
-import CartCreateModal from '@/pages/Cart/CartList/components/CartCreateModal';
-import CartUpdateModal from '@/pages/Cart/CartList/components/CartUpdateModal';
+import {
+  CartCreateModal,
+  CartSubmitModal,
+  CartUpdateModal,
+} from '@/pages/Cart/CartList/components';
+
 
 /**
  * 删除节点
@@ -41,6 +45,9 @@ const CartList: React.FC = () => {
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 更新窗口的Modal框
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
+  // 创建订单提交的Modal框
+  const [submitModalVisible, setSubmitModalVisible] = useState<boolean>(false);
+
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
   const [currentRow, setCurrentRow] = useState<API.CartVO>();
@@ -56,19 +63,27 @@ const CartList: React.FC = () => {
       hideInForm: true,
     },
     {
-      title: '商品id',
-      dataIndex: 'goodsVO',
-      valueType: 'text',
-    },
-    {
-      title: '商品数量',
+      title: '购买数量',
       dataIndex: 'quantity',
       valueType: 'text',
     },
     {
-      title: '用户信息',
-      dataIndex: 'orderVO',
+      title: '商品信息',
+      dataIndex: 'goodsVO',
       valueType: 'text',
+      render: (_, record: API.CartVO) => {
+        return <div>{record.goodsVO?.goodsName}</div>;
+      },
+      hideInForm: true,
+    },
+    {
+      title: '用户姓名',
+      dataIndex: 'userVO',
+      valueType: 'text',
+      render: (_, record: API.CartVO) => {
+        return <div>{record.userVO?.userName}</div>;
+      },
+      hideInForm: true,
     },
     {
       title: '创建时间',
@@ -92,6 +107,16 @@ const CartList: React.FC = () => {
       valueType: 'option',
       render: (_, record) => (
         <Space size={'middle'}>
+          <Typography.Link
+            key="submit"
+            onClick={() => {
+              setSubmitModalVisible(true);
+              setCurrentRow(record);
+              actionRef.current?.reload();
+            }}
+          >
+            提交订单
+          </Typography.Link>
           <Typography.Link
             key="update"
             onClick={() => {
@@ -194,6 +219,20 @@ const CartList: React.FC = () => {
           visible={updateModalVisible}
           columns={columns}
           oldData={currentRow}
+        />
+      )}
+      {/*提交订单表单的Modal框*/}
+      {submitModalVisible && (
+        <CartSubmitModal
+          onCancel={() => {
+            setSubmitModalVisible(false);
+          }}
+          onSubmit={async () => {
+            setSubmitModalVisible(false);
+            actionRef.current?.reload();
+          }}
+          visible={submitModalVisible}
+          goodsId={currentRow?.goodsVO?.id}
         />
       )}
     </PageContainer>

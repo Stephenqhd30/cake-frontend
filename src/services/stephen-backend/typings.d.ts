@@ -349,6 +349,7 @@ declare namespace API {
     address?: string;
     amount?: number;
     dateTime?: string;
+    goodsId?: number;
     payType?: number;
     status?: number;
     total?: number;
@@ -422,10 +423,10 @@ declare namespace API {
 
   type OrderItemVO = {
     createTime?: string;
+    goodsAmount?: number;
+    goodsPrice?: number;
     goodsVO?: GoodsVO;
     id?: number;
-    orderItemAmount?: number;
-    orderItemPrice?: number;
     orderVO?: OrderVO;
     updateTime?: string;
   };

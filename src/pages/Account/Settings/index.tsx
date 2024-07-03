@@ -2,9 +2,8 @@ import { PageContainer, ProCard } from '@ant-design/pro-components';
 import React, { useState } from 'react';
 
 import { ACCOUNT_TITLE } from '@/constants';
-import BaseView from '@/pages/Account/Settings/components/base';
-import Binding from '@/pages/Account/Settings/components/binding';
-import SecurityView from '@/pages/Account/Settings/components/security';
+import { BaseView, Binding, SecurityView } from '@/pages/Account/Settings/components';
+
 
 const Settings: React.FC = () => {
   const [tab, setTab] = useState('base');

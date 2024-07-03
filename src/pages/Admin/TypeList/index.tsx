@@ -3,9 +3,8 @@ import {ActionType, PageContainer, ProColumns, ProTable} from '@ant-design/pro-c
 import '@umijs/max';
 import {Button, message, Popconfirm, Space, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
-import TypeUpdateModal from './components/TypeUpdateModal';
 import {deleteTypeUsingPost, listTypeVoByPageUsingPost} from '@/services/stephen-backend/typeController';
-import TypeCreateModal from '@/pages/Admin/TypeList/components/TypeCreateModal';
+import { TypeCreateModal, TypeUpdateModal } from '@/pages/Admin/TypeList/components';
 
 /**
  * 删除节点

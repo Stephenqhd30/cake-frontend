@@ -4,8 +4,7 @@ import '@umijs/max';
 import {Button, message, Popconfirm, Space, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
 import {deleteOrderUsingPost, listOrderByPageUsingPost} from '@/services/stephen-backend/orderController';
-import OrderCreateModal from '@/pages/Admin/OrderList/components/OrderCreateModal';
-import OrderUpdateModal from '@/pages/Admin/OrderList/components/OrderUpdateModal';
+import {OrderCreateModal, OrderUpdateModal} from '@/pages/Admin/OrderList/components';
 
 /**
  * 删除节点

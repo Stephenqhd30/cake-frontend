@@ -1,7 +1,6 @@
 import React from 'react';
 import { PageContainer, ProCard } from '@ant-design/pro-components';
-import CakeInfoCard from '@/pages/Cake/CakeInfo/components/CakeInfoCard';
-import CakeDetailsCard from '@/pages/Cake/CakeInfo/components/CakeDetailsCard';
+import { CakeDetailsCard, CakeInfoCard } from '@/pages/Cake/CakeInfo/components';
 
 const CakeInfo: React.FC = () => {
   return (

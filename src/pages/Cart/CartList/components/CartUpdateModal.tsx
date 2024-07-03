@@ -2,14 +2,14 @@ import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
-import { updateOrderItemUsingPost } from '@/services/stephen-backend/orderItemController';
+import {updateCartUsingPost} from '@/services/stephen-backend/cartController';
 
-interface OrderItemUpdateProps {
-  oldData?: API.OrderItemVO;
+interface CartUpdateProps {
+  oldData?: API.CartVO;
   onCancel: () => void;
-  onSubmit: (values: API.OrderItemUpdateRequest) => Promise<void>;
+  onSubmit: (values: API.CartUpdateRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.OrderItemVO>[];
+  columns: ProColumns<API.CartVO>[];
 }
 
 /**
@@ -17,10 +17,10 @@ interface OrderItemUpdateProps {
  *
  * @param fields
  */
-const handleUpdate = async (fields: API.OrderItemUpdateRequest) => {
+const handleUpdate = async (fields: API.CartUpdateRequest) => {
   const hide = message.loading('正在更新');
   try {
-    await updateOrderItemUsingPost(fields);
+    await updateCartUsingPost(fields);
     hide();
     message.success('更新成功');
     return true;
@@ -30,7 +30,7 @@ const handleUpdate = async (fields: API.OrderItemUpdateRequest) => {
     return false;
   }
 };
-const OrderItemUpdateModal: React.FC<OrderItemUpdateProps> = (props) => {
+const CartUpdateModal: React.FC<CartUpdateProps> = (props) => {
   const { oldData, visible, onSubmit, onCancel, columns } = props;
   if (!oldData) {
     return <></>;
@@ -39,7 +39,7 @@ const OrderItemUpdateModal: React.FC<OrderItemUpdateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'更新订单信息'}
       open={visible}
       footer={null}
       onCancel={() => {
@@ -52,7 +52,7 @@ const OrderItemUpdateModal: React.FC<OrderItemUpdateProps> = (props) => {
           initialValues: oldData,
         }}
         columns={columns}
-        onSubmit={async (values: API.OrderItemUpdateRequest) => {
+        onSubmit={async (values: API.CartUpdateRequest) => {
           const success = await handleUpdate({
             ...values,
             id: oldData?.id,
@@ -65,4 +65,4 @@ const OrderItemUpdateModal: React.FC<OrderItemUpdateProps> = (props) => {
     </Modal>
   );
 };
-export default OrderItemUpdateModal;
+export default CartUpdateModal;

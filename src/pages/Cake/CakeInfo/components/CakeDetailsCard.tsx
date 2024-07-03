@@ -1,33 +1,41 @@
 import '@umijs/max';
-import React, {useEffect, useState} from 'react';
-import {ProCard, ProDescriptions} from '@ant-design/pro-components';
-import {getGoodsVoByIdUsingGet} from '@/services/stephen-backend/goodsController';
-import {useParams} from '@@/exports';
-import {message} from 'antd';
-
+import React, { useEffect, useState } from 'react';
+import { ProCard, ProColumns, ProDescriptions } from '@ant-design/pro-components';
+import { getGoodsVoByIdUsingGet } from '@/services/stephen-backend/goodsController';
+import { useParams } from '@@/exports';
+import { Button, message } from 'antd';
+import CakeCartCreateModal from '@/pages/Cake/CakeInfo/components/CakeCartCreateModal';
 
 const CakeDetailsCard: React.FC = () => {
-  const params = useParams<any>()
-  const [goodsInfo, setGoodsInfo] = useState<API.GoodsVO>()
+  const params = useParams<any>();
+  const [goodsInfo, setGoodsInfo] = useState<API.GoodsVO>();
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const loadDate = async () => {
     try {
       const res = await getGoodsVoByIdUsingGet({
         // @ts-ignore
-        id: params.id
+        id: params.id,
       });
       setGoodsInfo(res?.data);
     } catch (error: any) {
       message.error(`获取数据失败${error.message}`);
     }
   };
+
+  const handleAddToCart = () => {
+    setIsModalVisible(true);
+  };
+
   useEffect(() => {
-    loadDate()
+    loadDate();
   }, []);
 
+
+  // @ts-ignore
   return (
     <>
       <ProCard>
-        <ProDescriptions<API.User>
+        <ProDescriptions<API.GoodsVO>
           title={
             <>
               <span>{goodsInfo?.goodsName}</span>
@@ -35,6 +43,11 @@ const CakeDetailsCard: React.FC = () => {
           }
           dataSource={goodsInfo}
           emptyText={'数据暂时不存在哦'}
+          extra={
+            <Button type="primary" onClick={handleAddToCart}>
+              加入购物车
+            </Button>
+          }
           columns={[
             {
               title: '商品id',
@@ -67,25 +80,25 @@ const CakeDetailsCard: React.FC = () => {
               dataIndex: 'typeName',
               valueType: 'text',
               valueEnum: {
-                "冰淇淋系列": {
+                冰淇淋系列: {
                   text: '冰淇淋系列',
                 },
-                "零食系列": {
+                零食系列: {
                   text: '零食系列',
                 },
-                "儿童系列": {
+                儿童系列: {
                   text: '儿童系列',
                 },
-                "法式系列": {
+                法式系列: {
                   text: '法式系列',
                 },
-                "经典系列": {
+                经典系列: {
                   text: '经典系列',
                 },
-                "节日系列": {
+                节日系列: {
                   text: '节日系列',
                 },
-                "买不起系列": {
+                买不起系列: {
                   text: '买不起系列',
                 },
               },
@@ -136,6 +149,13 @@ const CakeDetailsCard: React.FC = () => {
           ]}
         />
       </ProCard>
+      {isModalVisible && (
+        <CakeCartCreateModal
+          visible={isModalVisible}
+          onCancel={() => setIsModalVisible(false)}
+          onSubmit={async () => setIsModalVisible(false)}
+        />
+      )}
     </>
   );
 };

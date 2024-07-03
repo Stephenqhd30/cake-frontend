@@ -3,12 +3,11 @@ import { ActionType, PageContainer, ProColumns, ProTable } from '@ant-design/pro
 import '@umijs/max';
 import { Button, message, Popconfirm, Space, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
-import GoodsUpdateModal from './components/GoodsUpdateModal';
 import {
   deleteGoodsUsingPost,
   listGoodsVoByPageUsingPost,
 } from '@/services/stephen-backend/goodsController';
-import GoodsCreateModal from '@/pages/Admin/GoodsList/components/GoodsCreateModal';
+import { GoodsCreateModal, GoodsUpdateModal } from '@/pages/Admin/GoodsList/components';
 
 /**
  * 删除节点
@@ -224,7 +223,7 @@ const GoodsList: React.FC = () => {
             ...filter,
             sortField,
             sortOrder,
-          } as API.OrderQueryRequest);
+          } as API.GoodsQueryRequest);
 
           return {
             success: code === 0,

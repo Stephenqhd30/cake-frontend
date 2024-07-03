@@ -39,7 +39,7 @@ const OrderUpdateModal: React.FC<OrderUpdateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'更新订单'}
       open={visible}
       footer={null}
       onCancel={() => {

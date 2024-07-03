@@ -42,7 +42,7 @@ const UserCreateModal: React.FC<UserCreateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'创建用户'}
       open={visible}
       footer={null}
       onCancel={() => {

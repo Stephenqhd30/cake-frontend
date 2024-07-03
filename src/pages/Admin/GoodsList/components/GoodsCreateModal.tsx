@@ -42,7 +42,7 @@ const GoodsCreateModal: React.FC<GoodsCreateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'新增商品'}
       open={visible}
       footer={null}
       onCancel={() => {

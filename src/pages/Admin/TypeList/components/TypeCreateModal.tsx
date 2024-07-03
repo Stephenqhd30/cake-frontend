@@ -42,7 +42,7 @@ const TypeCreateModal: React.FC<TypeProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'创建商品类别'}
       open={visible}
       footer={null}
       onCancel={() => {

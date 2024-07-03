@@ -39,7 +39,7 @@ const UserUpdateModal: React.FC<UserUpdateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'更新用户'}
       open={visible}
       footer={null}
       onCancel={() => {
